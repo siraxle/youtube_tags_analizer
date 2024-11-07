@@ -1,0 +1,29 @@
+{
+  "manifest_version": 3,
+  "name": "YouTube Tags Analyzer",
+  "version": "1.0",
+  "description": "Analyze and extract keywords from YouTube videos",
+  "permissions": [
+    "activeTab",
+    "storage",
+    "https://www.googleapis.com/*",
+    "https://www.youtube.com/*",
+    "nativeMessaging"
+  ],
+  "web_accessible_resources": [{
+    "resources": ["CREDS"],
+    "matches": ["<all_urls>"]
+  }],
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://www.youtube.com/*"],
+      "js": ["content.js"]
+    }
+  ]
+} 

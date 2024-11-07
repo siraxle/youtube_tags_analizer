@@ -1,0 +1,111 @@
+.container {
+  width: 400px;
+  padding: 20px;
+}
+
+.input-section {
+  margin-bottom: 20px;
+}
+
+#videoTitle {
+  width: 70%;
+  padding: 8px;
+  margin-right: 10px;
+}
+
+button {
+  padding: 8px 16px;
+  background-color: #4285f4;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #357abd;
+}
+
+.results-section {
+  margin-top: 20px;
+}
+
+.tags-container, .trends-container {
+  margin-top: 15px;
+}
+
+.hidden {
+  display: none;
+}
+
+.tag-item {
+  display: inline-block;
+  background-color: #f1f1f1;
+  padding: 5px 10px;
+  margin: 5px;
+  border-radius: 15px;
+}
+
+.tag-frequency {
+  color: #666;
+  font-size: 0.8em;
+  margin-left: 5px;
+}
+
+.video-links {
+  margin-top: 20px;
+  max-height: 200px;
+  overflow-y: auto;
+  border: 1px solid #eee;
+  padding: 10px;
+  border-radius: 4px;
+}
+
+.video-link {
+  margin: 8px 0;
+  padding: 8px;
+  background-color: #f8f8f8;
+  border-radius: 4px;
+}
+
+.video-link a {
+  color: #4285f4;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.video-link a:hover {
+  text-decoration: underline;
+}
+
+.video-stats {
+  font-size: 12px;
+  color: #666;
+  margin-top: 4px;
+}
+
+.button-group {
+  margin-top: 15px;
+  display: flex;
+  gap: 10px;
+}
+
+.button-group button {
+  flex: 1;
+}
+
+.trends-content {
+  margin: 10px 0;
+  padding: 10px;
+  background: #f8f9fa;
+  border-radius: 8px;
+}
+
+.trend-item {
+  display: inline-block;
+  background-color: #e9ecef;
+  padding: 5px 12px;
+  margin: 5px;
+  border-radius: 15px;
+  font-size: 14px;
+} 

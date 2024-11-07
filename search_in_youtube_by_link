@@ -1,0 +1,86 @@
+import requests
+import re
+
+
+def load_api_key(file_path="CREDS"):
+    """
+    Loads the API key from a text file.
+
+    Parameters:
+        file_path (str): The path to the file containing the API key. Default is "CREDS".
+
+    Returns:
+        str: The API key as a string with leading/trailing whitespace removed if the file is found.
+        None: If the file is not found or an error occurs.
+    """
+    try:
+        with open(file_path, "r") as file:
+            api_key = file.read().strip()
+            return api_key
+    except FileNotFoundError:
+        print(f"File {file_path} not found.")
+        return None
+
+
+def extract_video_id(url):
+    """
+    Extracts the video ID from a YouTube URL.
+
+    Parameters:
+        url (str): The YouTube video URL.
+
+    Returns:
+        str: The video ID if found.
+        None: If the video ID cannot be found in the URL.
+    """
+    match = re.search(r"(?:youtu\.be\/|v\/|\/u\/\w\/|embed\/|watch\?v=)([^#\&\?]*).*", url)
+    return match.group(1) if match else None
+
+
+def get_video_tags(api_key, video_id):
+    """
+    Retrieves video tags from YouTube using the YouTube Data API.
+
+    Parameters:
+        api_key (str): The API key for accessing the YouTube Data API.
+        video_id (str): The YouTube video ID.
+
+    Returns:
+        list: A list of tags for the specified video if found.
+        None: If tags are not found or an error occurs in the API request.
+    """
+    # Construct the API request URL
+    api_url = f"https://www.googleapis.com/youtube/v3/videos?part=snippet&id={video_id}&key={api_key}"
+    response = requests.get(api_url)
+
+    if response.status_code == 200:
+        data = response.json()
+        # Check if tags are available in the API response
+        if "items" in data and len(data["items"]) > 0:
+            tags = data["items"][0]["snippet"].get("tags", [])
+            return tags
+        else:
+            print("No tags found for the specified video.")
+            return None
+    else:
+        print("Error calling the API:", response.status_code)
+        return None
+
+
+# Load the API key from the CREDS file
+api_key = load_api_key()
+
+if api_key:
+    # Prompt the user to enter the YouTube video URL
+    url = input("Enter the YouTube video URL: ")
+    video_id = extract_video_id(url)
+
+    if video_id:
+        # Retrieve tags for the video
+        tags = get_video_tags(api_key, video_id)
+        if tags:
+            print("Video Tags:", tags)
+    else:
+        print("Failed to extract video ID from the URL.")
+else:
+    print("Failed to load the API key.")
